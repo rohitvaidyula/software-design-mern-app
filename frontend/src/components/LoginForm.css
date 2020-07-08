@@ -1,0 +1,8 @@
+.LoginForm {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  font-size: 18px;
+  font-weight: 600;
+}

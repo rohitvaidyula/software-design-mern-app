@@ -1,0 +1,9 @@
+.RegisterForm {
+  width: 100%;
+  max-width: 330px;
+  text-align: center;
+  padding: 15px;
+  margin: auto;
+  font-size: 18px;
+  font-weight: 600;
+}
