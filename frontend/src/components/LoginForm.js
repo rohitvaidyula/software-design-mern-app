@@ -28,6 +28,14 @@ export default class LoginForm extends React.Component {
 
   HandleSubmit = (e) => {
     e.preventDefault();
+    let request = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+
+    axios.post("http://localhost:4000/login", request).then((resp) => {
+      alert(resp.data.message);
+    });
   };
 
   render() {

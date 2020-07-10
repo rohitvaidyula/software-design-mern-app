@@ -4,12 +4,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const PORT = 4000;
+var LoginRoute = require("./routes/Login");
 
 app.use(bodyParser.json());
 app.use(cors());
-mongoose.connect("mongodb://127.0.0.1:27017/software-design-db", {
-  useNewUrlParser: true,
-});
+app.use("/", LoginRoute);
+
+mongoose.connect(
+  "mongodb+srv://Raj:Singh@software-design-db.5ytcj.mongodb.net/software-design-db?retryWrites=true&w=majority",
+  { useNewUrlParser: true }
+);
 
 mongoose.connection.once("open", function () {
   console.log("MongoDB connected successfully");

@@ -1,0 +1,27 @@
+{
+  "name": "software-design-mern-app",
+  "version": "1.0.0",
+  "description": "Full-stack website using the MERN stack for COSC 4353 - Software Design",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohitvaidyula/software-design-mern-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohitvaidyula/software-design-mern-app/issues"
+  },
+  "homepage": "https://github.com/rohitvaidyula/software-design-mern-app#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
