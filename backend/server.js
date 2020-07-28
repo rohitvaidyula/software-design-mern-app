@@ -4,20 +4,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const PORT = 4000;
-var LoginRoute = require("./routes/Login");
+var UserRoutes = require("./routes/UserRoutes");
+require("dotenv").config();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/", LoginRoute);
+app.use("/", UserRoutes);
 
-mongoose.connect(
-  "mongodb+srv://Raj:Singh@software-design-db.5ytcj.mongodb.net/software-design-db?retryWrites=true&w=majority",
-  { useNewUrlParser: true }
-);
-
-mongoose.connection.once("open", function () {
-  console.log("MongoDB connected successfully");
+mongoose.connect(process.env.DB_CONNECTION, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
 });
-app.listen(PORT, function () {
-  console.log("Server is running on Port: " + PORT);
-});
+app.listen(PORT);
