@@ -10,35 +10,10 @@ router.post("/register", async (req, res) => {
   try {
     const name = req.body.username;
     const pass = req.body.password;
-    const passCheck = req.body.passwordCheck;
-
-    if (!name || !pass || !passCheck) {
-      return res.status(400).json({
-        message: "All fileds must be entered!",
-      });
-    }
-
-    if (name.length < 5) {
-      return res.status(400).json({
-        message: "Username must be at least 5 characters",
-      });
-    }
-
-    if (pass.length < 8) {
-      return res.status(400).json({
-        message: "Password must be at least 8 characters",
-      });
-    }
-
-    if (pass !== passCheck) {
-      return res.status(400).json({
-        message: "Passwords do not match!",
-      });
-    }
 
     const existingUser = await user.findOne({ userName: name });
     if (existingUser) {
-      return res.status(400).json({
+      return res.send(false).json({
         message: "An account with this user already exists!",
       });
     }
@@ -53,9 +28,7 @@ router.post("/register", async (req, res) => {
 
     const saveUser = await newUser.save();
 
-    return res.status(200).json({
-      message: "New user added",
-    });
+    return res.send(true);
   } catch (err) {
     res.status(500).json({
       error: err.message,
@@ -85,7 +58,13 @@ router.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign({ id: User._id }, process.env.JWT_PASS);
-    return res.header("auth-token", token);
+    return res.json({
+      token,
+      user: {
+        id: User._id,
+        displayName: User.userName,
+      },
+    });
   } catch (err) {
     return res.status(500).json({
       error: err.message,
@@ -98,11 +77,11 @@ router.post("/tokenIsValid", async (req, res) => {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = jwt.verify(token, process.env.JWT_PASS);
     if (!verified) return res.json(false);
 
-    const user = await User.findById(verified.id);
-    if (!user) return res.json(false);
+    const User = await user.findById(verified.id);
+    if (!User) return res.json(false);
 
     return res.json(true);
   } catch (err) {
@@ -110,4 +89,11 @@ router.post("/tokenIsValid", async (req, res) => {
   }
 });
 
+router.get("/getUserData", auth, async (req, res) => {
+  const User = await user.findById(req.user);
+  return res.json({
+    id: User._id,
+    memeberName: User.userName,
+  });
+});
 module.exports = router;

@@ -1,0 +1,29 @@
+.registerForm {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+}
+
+.registerForm p {
+  color: #bf1650;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+}
+
+p::before {
+  display: inline;
+  content: "⚠ ";
+}
+.input-form {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 2px;
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
