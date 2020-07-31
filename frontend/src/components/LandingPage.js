@@ -14,9 +14,6 @@ export default function LandingPage() {
 
   return (
     <div className="landingPage">
-      <h2 className="text-center">
-        Welcome to software Design Project. Please login or register to continue
-      </h2>
       <div className="loginOptions">
         <button class="btn-sm btn-dark btn-block" onClick={toggleLoginModal}>
           Login
@@ -34,6 +31,9 @@ export default function LandingPage() {
           <Register />
         </Modali.Modal>
       </div>
+      <h2 className="text-center">
+        Welcome to software Design Project. Please login or register to continue
+      </h2>
     </div>
   );
 }

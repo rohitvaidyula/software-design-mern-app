@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import UserContext from "./context/UserContext";
+import CreateProfile from "./components/CreateProfile";
 import Axios from "axios";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={LandingPage}></Route>
             <Route exact path="/dashboard" component={Dashboard}></Route>
+            <Route exact path="/add-profile" component={CreateProfile}></Route>
           </Switch>
         </UserContext.Provider>
       </Router>

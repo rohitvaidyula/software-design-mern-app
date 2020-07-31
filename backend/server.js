@@ -11,9 +11,17 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/", UserRoutes);
 
-mongoose.connect(process.env.DB_CONNECTION, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
+  function () {
+    console.log("MongoDB connected successfully");
+  }
+);
+app.listen(PORT, function () {
+  `App listening on ${PORT}`;
 });
-app.listen(PORT);

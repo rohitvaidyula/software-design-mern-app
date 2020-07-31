@@ -1,33 +1,35 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import UserContext from "../context/UserContext";
 import "./RegisterForm.css";
+
 export default function Register() {
-  const [user, setUserData] = useState();
+  const [user, setuserData] = useState();
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
+  const { setUserData } = useContext(UserContext);
   let history = useHistory();
   const { handleSubmit, errors, register, watch } = useForm({});
   const pass = useRef({});
   pass.current = watch("password", "");
-  const Submit = (event) => {
+
+  const Submit = async (event) => {
     let request = {
       username: user,
       password: password,
-      passCheck: passwordCheck,
     };
-    axios
-      .post("http://localhost:4000/register", request)
-      .then((resp) => {
-        if (resp.data) {
-          alert("Success! You are now logged in.");
-          history.push("/dashboard");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    await axios.post("http://localhost:4000/register", request);
+    const loginCheck = await axios.post("http://localhost:4000/login", request);
+
+    setUserData({
+      JWToken: loginCheck.data.token,
+      user: loginCheck.data.user,
+    });
+
+    localStorage.setItem("auth-token", loginCheck.data.token);
+    history.push("/add-profile");
   };
 
   return (
@@ -47,7 +49,7 @@ export default function Register() {
               },
             })}
             onChange={(e) => {
-              setUserData(e.target.value);
+              setuserData(e.target.value);
             }}
           ></input>
           {errors.username && <p>{errors.username.message}</p>}
