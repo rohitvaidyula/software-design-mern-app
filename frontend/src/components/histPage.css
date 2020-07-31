@@ -1,0 +1,33 @@
+.profilePage{
+  width: 25%;
+  height: 50px;
+}
+
+.fuelQuotePage{
+  width: 25%;
+  height: 50px;
+}
+
+.clientID{
+  width: 25%;
+}
+
+.date{
+  width: 25%;
+}
+
+.finalPrice{
+  width: 25%;
+}
+
+.quoteID{
+  width: 25%;
+}
+
+.username{
+  width: 25%;
+}
+
+.labels{
+  display: flex;
+}
