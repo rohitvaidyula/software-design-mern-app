@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import UserContext from "./context/UserContext";
 import CreateProfile from "./components/CreateProfile";
 import Axios from "axios";
+import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   const [UserData, setUserData] = useState({
@@ -47,6 +48,11 @@ function App() {
           <Switch>
             <Route exact path="/" component={LandingPage}></Route>
             <Route exact path="/dashboard" component={Dashboard}></Route>
+            <Route
+              exact
+              path="/update-profile"
+              component={UpdateProfile}
+            ></Route>
             <Route exact path="/add-profile" component={CreateProfile}></Route>
           </Switch>
         </UserContext.Provider>

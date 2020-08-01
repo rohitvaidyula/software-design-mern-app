@@ -2,11 +2,12 @@ import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
-import "./CreateProfile.css";
-import Axios from "axios";
-export default function CreateProfile() {
+import axios from "axios";
+import "./UpdateProfile.css";
+
+export default function UpdateProfile() {
   const { UserData, setUserData } = useContext(UserContext);
-  const [form, setForm] = useState({
+  const [ProfileUpdate, setProfileUpdate] = useState({
     first: "",
     last: "",
     addr1: "",
@@ -14,37 +15,39 @@ export default function CreateProfile() {
     city: "",
     zipcode: "",
     state: "",
-    userID: "",
   });
-  const { handleSubmit, register, errors } = useForm({});
 
+  const { handleSubmit, register } = useForm({});
+  const history = useHistory();
   const handleChange = (e) => {
-    setForm({
-      ...form,
+    setProfileUpdate({
+      ...ProfileUpdate,
       [e.target.name]: e.target.value,
     });
   };
-  let history = useHistory();
+
   const Submit = async () => {
     try {
       const request = {
         ID: UserData.user.id,
-        first: form.first,
-        last: form.last,
-        addr1: form.addr1,
-        addr2: form.addr2,
-        city: form.city,
-        zipcode: form.zipcode,
-        state: form.state,
+        first: ProfileUpdate.first,
+        last: ProfileUpdate.last,
+        addr1: ProfileUpdate.addr1,
+        addr2: ProfileUpdate.addr2,
+        city: ProfileUpdate.city,
+        zipcode: ProfileUpdate.zipcode,
+        state: ProfileUpdate.state,
       };
 
-      const token = localStorage.getItem("auth-token");
-      const profileCheck = await Axios.post(
-        "http://localhost:4000/add-profile",
+      const authToken = localStorage.getItem("auth-token");
+      const updateProfile = await axios.post(
+        "http://localhost:4000/update-profile",
         request,
-        { headers: { "x-auth-token": token } }
+        { headers: { "x-auth-token": authToken } }
       );
-      if (profileCheck) {
+
+      if (updateProfile) {
+        alert("Success! Your profile has now been updated.");
         history.push("/dashboard");
       }
     } catch (err) {
@@ -54,10 +57,8 @@ export default function CreateProfile() {
   return (
     <div>
       {UserData.user ? (
-        <form class="add-profile-form" onSubmit={handleSubmit(Submit)}>
-          <h1 className="text-center">
-            Welcome {UserData.user.displayName}, please fill out your profile.
-          </h1>
+        <form className="update-profile-form" onSubmit={handleSubmit(Submit)}>
+          <h2 className="text-center">Update your profile</h2>
           <div>
             <label>First name:</label>
             <input
@@ -191,7 +192,7 @@ export default function CreateProfile() {
               <option value="WY">Wyoming - WY</option>
             </select>
           </div>
-          <button className="btn-sm btn-dark" type="submit">
+          <button className=" text-center btn-sm btn-dark" type="submit">
             Submit
           </button>
         </form>

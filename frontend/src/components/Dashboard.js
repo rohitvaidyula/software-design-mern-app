@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import "./Dashboard.css";
 export default function Dashboard() {
   const { UserData, setUserData } = useContext(UserContext);
 
+  let history = useHistory();
+  const changePage = () => {
+    history.push("/update-profile");
+  };
   const logOut = () => {
     setUserData({
       token: undefined,
@@ -19,7 +23,9 @@ export default function Dashboard() {
         <>
           <nav class="nav navbar justify-content-left">
             <h4>Fuel Quote App</h4>
-            <button class="btn btn-sm btn-dark">Edit Profile</button>
+            <button onClick={changePage} class="btn btn-sm btn-dark">
+              Edit Profile
+            </button>
             <button class="btn btn-sm btn-dark">Quote History</button>
             <button class="btn btn-sm btn-dark">Get Quote</button>
             <button class="btn btn-sm btn-dark" onClick={logOut}>
