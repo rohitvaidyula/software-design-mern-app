@@ -101,7 +101,7 @@ router.get("/getUserData", auth, async (req, res) => {
   const User = await user.findById(req.user);
   return res.json({
     id: User._id,
-    memeberName: User.userName,
+    displayName: User.userName,
   });
 });
 module.exports = router;

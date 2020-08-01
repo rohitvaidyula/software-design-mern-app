@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Redirect } from "react-router-dom";
-
+import "./Dashboard.css";
 export default function Dashboard() {
   const { UserData, setUserData } = useContext(UserContext);
 
@@ -17,8 +17,16 @@ export default function Dashboard() {
     <div>
       {UserData.user ? (
         <>
-          <h1>Welcome {UserData.user.displayName}</h1>
-          <button onClick={logOut}>Logout</button>
+          <nav class="nav navbar justify-content-left">
+            <h4>Fuel Quote App</h4>
+            <button class="btn btn-sm btn-dark">Edit Profile</button>
+            <button class="btn btn-sm btn-dark">Quote History</button>
+            <button class="btn btn-sm btn-dark">Get Quote</button>
+            <button class="btn btn-sm btn-dark" onClick={logOut}>
+              Logout
+            </button>
+          </nav>
+          <h1>Welcome {UserData.user.id}</h1>
         </>
       ) : (
         <>
