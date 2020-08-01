@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var user = require("../models/UserController");
+var profiles = require("../models/ProfileController");
+var Form = require("../models/QuoteForm-model");
 var bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -105,4 +107,43 @@ router.get("/getUserData", auth, async (req, res) => {
   });
 });
 
+router.post("/forms", async (req, res) => {
+    const create_form = new Form({
+        username: req.body.username,
+        name: req.body.name,
+        state: req.body.state,
+        del_date: req.body.del_date,
+        gallon: req.body.gallon,
+        suggested_price: req.body.suggested_price,
+        final_price: req.body.final_price
+    })
+
+    try {
+        const newform = await create_form.save()
+        res.status(201).json(newform)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+})
+
+router.get("/user/:username", async(req,res) => {
+    let username = req.params.username;
+    user.find({userName: username})
+    .then(name => res.json(name))
+    .catch(err=>res.status(400).json('Error: '+err));
+});
+
+
+router.get("/profile/:id", async(req,res)=> {
+    profiles.findById(req.params.id)
+    .then(profile => res.json(profile))
+    .catch(err=>res.status(400).json('Error: '+err));
+});
+
+router.get("/form/:username", async(req,res) =>{
+    let name = req.params.username
+    Form.find({username: name})
+    .then(form => res.json(form))
+    .catch(err=>res.status(400).json('Error: '+err));
+});
 module.exports = router;

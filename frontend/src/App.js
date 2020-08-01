@@ -4,6 +4,8 @@ import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import UserContext from "./context/UserContext";
 import CreateProfile from "./components/CreateProfile";
+import CreateQuote from "./components/createForm";
+
 import Axios from "axios";
 import UpdateProfile from "./components/UpdateProfile";
 
@@ -54,6 +56,7 @@ function App() {
               component={UpdateProfile}
             ></Route>
             <Route exact path="/add-profile" component={CreateProfile}></Route>
+	    <Route path="/create-form" component={CreateQuote} />
           </Switch>
         </UserContext.Provider>
       </Router>
