@@ -3,6 +3,7 @@ import { handleSubmit, errors, register, useForm } from "react-hook-form";
 import { useHistory, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import "./CreateProfile.css";
+import Axios from "axios";
 export default function CreateProfile() {
   const { UserData, setUserData } = useContext(UserContext);
   const [form, setForm] = useState({
@@ -24,15 +25,31 @@ export default function CreateProfile() {
     });
   };
   let history = useHistory();
-  const Submit = () => {
-    alert(form.first);
-    const JWToken = localStorage.getItem("auth-token");
-    setUserData({
-      token: JWToken,
-      user: UserData.user,
-      FName: form.first,
-    });
-    history.push("/dashboard");
+  const Submit = async () => {
+    try {
+      const request = {
+        ID: UserData.user.id,
+        first: form.first,
+        last: form.last,
+        addr1: form.addr1,
+        addr2: form.addr2,
+        city: form.city,
+        zipcode: form.zipcode,
+        state: form.state,
+      };
+
+      const token = localStorage.getItem("auth-token");
+      const profileCheck = await Axios.post(
+        "http://localhost:4000/add-profile",
+        request,
+        { headers: { "x-auth-token": token } }
+      );
+      if (profileCheck) {
+        history.push("/dashboard");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div>

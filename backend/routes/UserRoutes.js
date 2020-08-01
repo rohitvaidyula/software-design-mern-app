@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var user = require("../models/UserCredController");
+var user = require("../models/UserController");
 var bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -104,4 +104,5 @@ router.get("/getUserData", auth, async (req, res) => {
     displayName: User.userName,
   });
 });
+
 module.exports = router;
