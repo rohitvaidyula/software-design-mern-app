@@ -4,10 +4,9 @@ import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import UserContext from "./context/UserContext";
 import CreateProfile from "./components/CreateProfile";
-import CreateQuote from "./components/createForm";
-
 import Axios from "axios";
 import UpdateProfile from "./components/UpdateProfile";
+import FuelForm from "./components/FuelForm";
 
 function App() {
   const [UserData, setUserData] = useState({
@@ -56,7 +55,7 @@ function App() {
               component={UpdateProfile}
             ></Route>
             <Route exact path="/add-profile" component={CreateProfile}></Route>
-	    <Route path="/create-form" component={CreateQuote} />
+            <Route exact path="/form-creation" component={FuelForm} />
           </Switch>
         </UserContext.Provider>
       </Router>

@@ -14,8 +14,11 @@ export default function Dashboard() {
       token: undefined,
       user: undefined,
     });
-
     localStorage.setItem("auth-token", "");
+  };
+
+  const changeToQuote = () => {
+    history.push("/form-creation");
   };
   return (
     <div>
@@ -27,7 +30,9 @@ export default function Dashboard() {
               Edit Profile
             </button>
             <button class="btn btn-sm btn-dark">Quote History</button>
-            <button class="btn btn-sm btn-dark">Get Quote</button>
+            <button onClick={changeToQuote} class="btn btn-sm btn-dark">
+              Get Quote
+            </button>
             <button class="btn btn-sm btn-dark" onClick={logOut}>
               Logout
             </button>

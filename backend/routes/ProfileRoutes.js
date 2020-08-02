@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Profile = require("../models/ProfileController");
+var Profile = require("../models/ProfileModel");
 require("dotenv").config();
 var auth = require("../middleware/auth");
 
@@ -53,4 +53,21 @@ router.post("/update-profile", auth, async (req, res) => {
   }
 });
 
+router.get("/getprofile/:id", auth, async (req, res) => {
+  try {
+    await Profile.findById(req.params.id, function (err, profile) {
+      if (!profile) {
+        return res.send(400).json({
+          message: "Profile not found",
+        });
+      } else {
+        return res.send(profile);
+      }
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+});
 module.exports = router;

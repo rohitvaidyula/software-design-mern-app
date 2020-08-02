@@ -1,11 +1,20 @@
-import React, { Component, useContext } from 'react';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"
-import axios from 'axios'
-import UserContext from "../context/UserContext"
+/*
+import React, { useState, useContext } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import UserContext from "../context/UserContext";
+import React from "react";
+
+export default function createForm() {
+  const { UserData, setUserData } = useContext(UserContext);
+
+  return <div></div>;
+}
 
 ////Ill comment in so that its easier for you in interpret should you need it
 ////I have included the useContext like you mentioned and showed yesterday. Please look through to see if it implemented properly
+
 
 const {UserData, setUserData} = useContext(UserContext);
 var active_user = UserData.user.DisplayName
@@ -325,5 +334,6 @@ export default class createForm extends Component {
 
         )
     }
-
 }
+
+*/
