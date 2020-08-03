@@ -10,6 +10,7 @@ router.post("/add-fuel-history/:id", auth, async (req, res) => {
 
     const newHistory = new History({
       user_id: ID,
+      gallon: req.body.gallons,
       username: req.body.username,
       suggestedPrice: req.body.suggested_price,
       finalPrice: req.body.final_price,
@@ -28,13 +29,13 @@ router.post("/add-fuel-history/:id", auth, async (req, res) => {
 
 router.get("/get-fuel-history/:id", auth, async (req, res) => {
   try {
-    await History.findById({ user_id: req.params.id }, function (err, history) {
+    await History.find({ user_id: req.params.id }, function (err, history) {
       if (!history) {
         return res.status(400).json({
           message: "This user has no history",
         });
       } else {
-        return res.send(history);
+        return res.json(history);
       }
     });
   } catch (err) {

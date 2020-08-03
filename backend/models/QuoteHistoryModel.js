@@ -18,6 +18,10 @@ const History = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  gallon: {
+    type: Number,
+    required: true,
+  },
   date: {
     type: Date,
     required: true,

@@ -1,0 +1,31 @@
+.history-list {
+  text-align: center;
+}
+.labels {
+  display: flex;
+}
+
+.username {
+  width: 25%;
+}
+
+.date {
+  width: 25%;
+}
+
+.suggested_price {
+  width: 20%;
+}
+
+.gallons {
+  width: 20%;
+}
+.final_price {
+  width: 20%;
+}
+
+#label-name {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+  font-weight: 700;
+}

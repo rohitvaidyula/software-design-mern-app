@@ -7,6 +7,7 @@ import CreateProfile from "./components/CreateProfile";
 import Axios from "axios";
 import UpdateProfile from "./components/UpdateProfile";
 import FuelForm from "./components/FuelForm";
+import GetHistory from "./components/GetHistory";
 
 function App() {
   const [UserData, setUserData] = useState({
@@ -56,6 +57,7 @@ function App() {
             ></Route>
             <Route exact path="/add-profile" component={CreateProfile}></Route>
             <Route exact path="/form-creation" component={FuelForm} />
+            <Route exact path="/fuel-history" component={GetHistory} />
           </Switch>
         </UserContext.Provider>
       </Router>

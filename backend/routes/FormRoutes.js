@@ -31,4 +31,20 @@ router.get("/get-form/:username", auth, async (req, res) => {
     .then((form) => res.json(form))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+/*
+router.get("/get-form-history/:id", auth, async (req, res) => {
+  const ID = req.params.id;
+
+  await Fuel.find({ user_id: ID }, function (err, fuel) {
+    if (!fuel) {
+      return res.status(400).json({
+        message: "Form not found",
+      });
+    } else {
+      let fuelQuoteHistory = {};
+    }
+  });
+});
+*/
 module.exports = router;

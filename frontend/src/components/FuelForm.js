@@ -100,6 +100,7 @@ export default function FuelForm() {
       let request = {
         username: UserData.user.displayName,
         suggested_price: Form.suggested_price,
+        gallons: Form.gallon,
         final_price: Form.final_price,
         del_date: Form.del_date,
       };
@@ -140,26 +141,26 @@ export default function FuelForm() {
     }
 
     console.log(location_factor);
-    if (Form.isReturning === true) {
-      rate_history_factor = 0.01;
-    } else {
+    if (Form.isReturning === false) {
       rate_history_factor = 0;
+    } else {
+      rate_history_factor = 0.01;
     }
 
     console.log(rate_history_factor);
-    if (Form.gallon > 1000) {
-      gallons_requested_factor = 0.02;
-    } else {
+    if (Form.gallon < 1000) {
       gallons_requested_factor = 0.03;
+    } else {
+      gallons_requested_factor = 0.02;
     }
 
     console.log(gallons_requested_factor);
-    margin =
-      price_per_gallon *
-      (location_factor -
-        rate_history_factor +
-        gallons_requested_factor +
-        company_factor);
+    var value =
+      location_factor -
+      rate_history_factor +
+      gallons_requested_factor +
+      company_factor;
+    margin = price_per_gallon * value;
 
     sug_price_per_gallon = price_per_gallon + margin;
     fin_price = Form.gallon * sug_price_per_gallon;

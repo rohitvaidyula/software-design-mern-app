@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Redirect, useHistory } from "react-router-dom";
 import "./Dashboard.css";
+import Axios from "axios";
 export default function Dashboard() {
   const { UserData, setUserData } = useContext(UserContext);
 
@@ -20,6 +21,19 @@ export default function Dashboard() {
   const changeToQuote = () => {
     history.push("/form-creation");
   };
+
+  const changeToHistory = () => {
+    history.push("/fuel-history");
+  };
+
+  const viewProfile = async () => {
+    const profileCheck = await Axios.get(
+      "http://localhost:4000/getprofile/" + UserData.user.id,
+      {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      }
+    );
+  };
   return (
     <div>
       {UserData.user ? (
@@ -29,7 +43,9 @@ export default function Dashboard() {
             <button onClick={changePage} class="btn btn-sm btn-dark">
               Edit Profile
             </button>
-            <button class="btn btn-sm btn-dark">Quote History</button>
+            <button onClick={changeToHistory} class="btn btn-sm btn-dark">
+              Quote History
+            </button>
             <button onClick={changeToQuote} class="btn btn-sm btn-dark">
               Get Quote
             </button>
@@ -37,7 +53,7 @@ export default function Dashboard() {
               Logout
             </button>
           </nav>
-          <h1>Welcome {UserData.user.id}</h1>
+          <h1 className="text-center">Welcome {UserData.user.displayName}</h1>
         </>
       ) : (
         <>

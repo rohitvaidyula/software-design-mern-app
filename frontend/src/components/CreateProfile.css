@@ -12,7 +12,6 @@
 
 p::before {
   display: inline;
-  content: "⚠ ";
 }
 
 .input-form {

@@ -10,7 +10,6 @@
 
 .loginForm p::before {
   display: inline;
-  content: "⚠ ";
 }
 
 .loginForm label {
