@@ -1,3 +1,8 @@
+.stuff {
+  min-height: 100vh;
+  margin: 0;
+  width: auto;
+}
 .navbar {
   width: 100%;
   text-align: left;

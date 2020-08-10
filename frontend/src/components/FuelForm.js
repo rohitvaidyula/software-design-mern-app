@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 export default function FuelForm() {
-  const { UserData, setUserData } = useContext(UserContext);
+  const { UserData } = useContext(UserContext);
   const active_user = UserData.user.displayName;
   let history = useHistory();
   const { handleSubmit } = useForm({});
@@ -52,8 +52,10 @@ export default function FuelForm() {
 
         if (profileCheck.data.user_state === "TX") {
           Form.inState = true;
+        } else {
+          Form.inState = false;
         }
-        //console.log(Form.inState);
+        console.log(Form.inState);
       } else {
         alert("Profile for user not found.");
       }
@@ -75,6 +77,10 @@ export default function FuelForm() {
   }, []);
 
   const Submit = async (e) => {
+    if (Form.gallon < 0) {
+      alert("Error! You cannot have negative gallons");
+      history.push("/form-creation");
+    }
     const name = Form.first + " " + Form.last;
     const newForm = {
       _id: UserData.user.id,
@@ -113,9 +119,6 @@ export default function FuelForm() {
       );
 
       if (historyCheck) {
-        alert(
-          "This is the calculated price of your quote: " + Form.final_price
-        );
         history.push("/dashboard");
       }
     }
@@ -140,21 +143,18 @@ export default function FuelForm() {
       location_factor = 0.02;
     }
 
-    console.log(location_factor);
     if (Form.isReturning === false) {
       rate_history_factor = 0;
     } else {
       rate_history_factor = 0.01;
     }
 
-    console.log(rate_history_factor);
     if (Form.gallon < 1000) {
       gallons_requested_factor = 0.03;
     } else {
       gallons_requested_factor = 0.02;
     }
 
-    console.log(gallons_requested_factor);
     var value =
       location_factor -
       rate_history_factor +
@@ -167,6 +167,8 @@ export default function FuelForm() {
 
     Form.suggested_price = sug_price_per_gallon;
     Form.final_price = fin_price;
+
+    history.push("/form-creation");
   };
 
   const name = Form.first + " " + Form.last;
@@ -230,6 +232,7 @@ export default function FuelForm() {
             type="text"
             className="form-control"
             name="gallon"
+            required
             onChange={handleGallons}
           />
         </div>
@@ -238,6 +241,7 @@ export default function FuelForm() {
           <label>Date: </label>
           <div>
             <DatePicker
+              required
               selected={Form.del_date}
               onChange={(Date) => (Form.del_date = Date)}
             />
@@ -249,18 +253,17 @@ export default function FuelForm() {
           <input
             type="text"
             className="form-control"
-            name="suggested_price"
+            value={Form.suggested_price}
             readOnly
-          />
+          ></input>
         </div>
 
         <div>
           <label>Final Price (in USD):</label>
-
           <input
             type="text"
             className="form-control"
-            name="final_price"
+            value={Form.final_price}
             readOnly
           />
         </div>
@@ -269,7 +272,7 @@ export default function FuelForm() {
           <input type="button" onClick={getQuote} value="Get Quote" />
         </div>
 
-        <div className=" text-center form-group">
+        <div className="text-center form-group" style={{ paddingBottom: 15 }}>
           <button type="submit" className="btn-sm btn-dark">
             Submit Quote
           </button>

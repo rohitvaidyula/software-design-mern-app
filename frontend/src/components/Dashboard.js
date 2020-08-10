@@ -26,16 +26,8 @@ export default function Dashboard() {
     history.push("/fuel-history");
   };
 
-  const viewProfile = async () => {
-    const profileCheck = await Axios.get(
-      "http://localhost:4000/getprofile/" + UserData.user.id,
-      {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      }
-    );
-  };
   return (
-    <div>
+    <div className="stuff">
       {UserData.user ? (
         <>
           <nav class="nav navbar justify-content-left">

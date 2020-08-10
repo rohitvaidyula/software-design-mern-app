@@ -9,7 +9,9 @@
 }
 
 .landingPage button {
-  margin: auto;
+  margin-top: 30px;
+  display: inline-block;
+
   max-width: 150px;
 }
 .landingPage button:hover {
